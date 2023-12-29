@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ktor-hexagonal-template-postgresql
+  labels:
+    app: ktor-hexagonal-template-postgresql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ktor-hexagonal-template-postgresql
+  template:
+    metadata:
+      labels:
+        app: ktor-hexagonal-template-postgresql
+    spec:
+      containers:
+        - name: ktor-hexagonal-template-postgresql
+          image: postgres:16-alpine
+          envFrom:
+            - configMapRef:
+                name: ktor-hexagonal-template
+            - secretRef:
+                name: ktor-hexagonal-template
+          ports:
+            - containerPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ktor-hexagonal-template-postgresql
+  labels:
+    app: ktor-hexagonal-template-postgresql
+spec:
+  ports:
+    - port: 5432
+      protocol: TCP
+  selector:
+    app: ktor-hexagonal-template-postgresql
