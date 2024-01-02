@@ -8,6 +8,7 @@ import com.poisonedyouth.ktorhexagonaltemplate.domain.user.vo.Country
 import com.poisonedyouth.ktorhexagonaltemplate.domain.user.vo.Name
 import com.poisonedyouth.ktorhexagonaltemplate.domain.user.vo.ZipCode
 import java.util.*
+import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
@@ -20,7 +21,7 @@ class ReadUserInputPortTest {
     private val readUserInputPort = ReadUserInputPort(userOutputPort)
 
     @Test
-    fun `should return userDto when user exists`() {
+    fun `should return userDto when user exists`() = runTest {
         // Given
         val userId = UUID.randomUUID().toIdentity()
         val user =
@@ -49,7 +50,7 @@ class ReadUserInputPortTest {
     }
 
     @Test
-    fun `should return null when user does not exist`() {
+    fun `should return null when user does not exist`() = runTest {
         // Given
         val userId = UUID.randomUUID().toIdentity()
         whenever(userOutputPort.findBy(userId)).thenReturn(null)

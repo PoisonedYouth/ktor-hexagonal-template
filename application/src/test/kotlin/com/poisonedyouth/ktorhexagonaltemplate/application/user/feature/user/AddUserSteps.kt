@@ -15,6 +15,7 @@ import io.cucumber.java.en.Then
 import io.cucumber.java.en.When
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.matchers.shouldNotBe
+import kotlinx.coroutines.test.runTest
 
 class AddUserSteps {
 
@@ -41,12 +42,12 @@ class AddUserSteps {
     }
 
     @When("I add the user to the system")
-    fun `add user object to system`() {
+    fun `add user object to system`() = runTest {
         testState.output = Either.catch { writeUserInputPort.add(testState.input) }
     }
 
     @Then("the id of the user is returned")
-    fun `check for the identity returned`() {
+    fun `check for the identity returned`() = runTest {
         testState.output.shouldBeRight().also { userOutputPort.findBy(it) shouldNotBe null }
     }
 }

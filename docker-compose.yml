@@ -10,12 +10,12 @@ services:
       PGUSER: root
       POSTGRES_PASSWORD: password
       POSTGRES_DB: db
-  application:
-    container_name: "ktor-hexagonal-template"
-    image: ktor-hexagonal-template:0.0.1
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/db
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: password
+#  application:
+#    container_name: "ktor-hexagonal-template"
+#    image: ktor-hexagonal-template:0.0.1
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      KTOR_DATASOURCE_URL: jdbc:postgresql://postgres:5432/db
+#      KTOR_DATASOURCE_USERNAME: root
+#      KTOR_DATASOURCE_PASSWORD: password

@@ -5,11 +5,11 @@ import com.poisonedyouth.ktorhexagonaltemplate.domain.user.entity.User
 
 interface UserOutputPort {
 
-    fun store(user: User): Identity
+    suspend fun store(user: User): Identity
 
-    fun findBy(identity: Identity): User?
+    suspend fun findBy(identity: Identity): User?
 
-    fun delete(identity: Identity)
+    suspend fun delete(identity: Identity)
 
-    fun all(): List<User>
+    suspend fun all(): List<User>
 }

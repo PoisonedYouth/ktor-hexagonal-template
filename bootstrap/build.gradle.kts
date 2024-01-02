@@ -1,32 +1,30 @@
-import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
-
 plugins {
-   alias(libs.plugins.springboot)
-    alias(libs.plugins.springDependencyManagement)
-    alias(libs.plugins.kotlinSpring)
+   alias(libs.plugins.ktor)
+    id ("java-test-fixtures")
 }
 
 dependencies {
-    implementation(project(":framework"))
+    implementation(project(":infrastructure"))
 
-    // Spring
-    implementation(libs.springBootStarterWeb)
-    testImplementation(libs.springBootStarterTest)
-    testImplementation(libs.springBootStarterTestcontainers)
-
-    // OpenAPI
-    implementation(libs.springdocOpenApi)
+    // Ktor
+    implementation(libs.ktorCIOEngine)
+    implementation(libs.ktorServerCore)
 
     // Testing
-    testImplementation(libs.testContainersCore)
-    testImplementation(libs.testContainersPostgresql)
-    testImplementation(libs.testContainersJunitJupiter)
+    testImplementation(libs.ktorTest)
+    testImplementation(libs.junitJupiterApi)
+    testImplementation(libs.junitJupiterEngine)
+    testImplementation(libs.assertJ)
+    testImplementation(testFixtures(project(":infrastructure")))
 }
 
-springBoot {
-    mainClass = "com.poisonedyouth.ktorhexagonaltemplate.bootstrap.KtorHexagonalTemplateApplicationKt"
+ktor {
+    docker {
+        localImageName.set("ktor-hexagonal-template")
+        imageTag.set("0.0.1")
+    }
 }
 
-tasks.withType<BootBuildImage> {
-    imageName = "ktor-hexagonal-template:0.0.1"
+application {
+    mainClass.set("com.poisonedyouth.ktorhexagonaltemplate.bootstrap.KtorHexagonalTemplateApplication")
 }

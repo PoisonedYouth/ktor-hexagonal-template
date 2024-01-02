@@ -40,3 +40,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+/infrastructure/docs/.swagger-codegen-ignore
+/infrastructure/docs/index.html
+/infrastructure/docs/.swagger-codegen/VERSION

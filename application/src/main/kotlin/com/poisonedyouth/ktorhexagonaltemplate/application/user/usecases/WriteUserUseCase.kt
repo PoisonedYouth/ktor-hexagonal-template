@@ -4,9 +4,9 @@ import com.poisonedyouth.ktorhexagonaltemplate.common.vo.Identity
 import com.poisonedyouth.ktorhexagonaltemplate.domain.user.entity.User
 
 interface WriteUserUseCase {
-    fun add(user: User): Identity
+    suspend fun add(user: User): Identity
 
-    fun update(user: User)
+    suspend fun update(user: User)
 
-    fun delete(userId: Identity)
+    suspend fun delete(userId: Identity)
 }

@@ -2,7 +2,7 @@ rootProject.name = "ktor-hexagonal-template"
 
 include("domain")
 include("application")
-include("framework")
+include("infrastructure")
 include("common")
 include("bootstrap")
 include("konsist")

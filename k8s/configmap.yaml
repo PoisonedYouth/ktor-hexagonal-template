@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: ktor-hexagonal-template
 data:
-  SPRING_DATASOURCE_URL: "jdbc:postgresql://ktor-hexagonal-template-postgresql:5432/db"
+  KTOR_DATASOURCE_URL: "jdbc:postgresql://ktor-hexagonal-template-postgresql:5432/db"
   POSTGRES_DB: "db"

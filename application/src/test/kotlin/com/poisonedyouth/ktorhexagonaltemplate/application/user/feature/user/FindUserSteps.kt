@@ -17,6 +17,7 @@ import io.cucumber.java.en.When
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.collections.shouldHaveSize
+import kotlinx.coroutines.test.runTest
 
 class FindUserSteps {
 
@@ -26,28 +27,30 @@ class FindUserSteps {
     private val testState = TestState<MutableList<Identity>, List<User>>()
 
     @Given("the following users exist:")
-    fun `create valid user object`(dataTable: DataTable) {
+    fun `create valid user object`(dataTable: DataTable) = runTest {
         testState.input = mutableListOf()
         dataTable.asLists().forEach { user ->
-            val user =
-                User(
-                    identity = Identity.NoIdentity,
-                    name = Name(firstName = user[0], lastName = user[1]),
-                    address =
-                        Address(
-                            streetName = user[2],
-                            streetNumber = user[3],
-                            city = user[4],
-                            zipCode = ZipCode(user[5].toInt()),
-                            country = Country(name = user[6], code = user[7])
-                        )
+            testState.input.add(
+                writeUserInputPort.add(
+                    User(
+                        identity = Identity.NoIdentity,
+                        name = Name(firstName = user[0], lastName = user[1]),
+                        address =
+                            Address(
+                                streetName = user[2],
+                                streetNumber = user[3],
+                                city = user[4],
+                                zipCode = ZipCode(user[5].toInt()),
+                                country = Country(name = user[6], code = user[7])
+                            )
+                    )
                 )
-            testState.input.add(writeUserInputPort.add(user))
+            )
         }
     }
 
     @When("I request for all user")
-    fun `request for all user`() {
+    fun `request for all user`() = runTest {
         testState.output = Either.catch { userOutputPort.all() }
     }
 

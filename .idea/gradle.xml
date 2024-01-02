@@ -25,7 +25,7 @@
             <option value="$PROJECT_DIR$/buildConfiguration" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/domain" />
-            <option value="$PROJECT_DIR$/framework" />
+            <option value="$PROJECT_DIR$/infrastructure" />
             <option value="$PROJECT_DIR$/konsist" />
           </set>
         </option>

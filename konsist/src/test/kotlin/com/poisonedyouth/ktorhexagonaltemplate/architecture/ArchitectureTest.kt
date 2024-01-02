@@ -13,40 +13,40 @@ class ArchitectureTest {
     @Test
     fun `dependencies of modules are correct`() {
         Konsist.scopeFromProduction().assertArchitecture {
-            val applicationLayer =
-                Layer("application", "com.poisonedyouth.springhexagonaltemplate.application..")
-            val domain = Layer("domain", "com.poisonedyouth.springhexagonaltemplate.domain..")
-            val framework =
-                Layer("framework", "com.poisonedyouth.springhexagonaltemplate.framework..")
+            val application =
+                Layer("application", "com.poisonedyouth.ktorhexagonaltemplate.application..")
+            val domain = Layer("domain", "com.poisonedyouth.ktorhexagonaltemplate.domain..")
+            val infrastructure =
+                Layer("infrastructure", "com.poisonedyouth.ktorhexagonaltemplate.infrastructure..")
             val bootstrap =
-                Layer("bootstrap", "com.poisonedyouth.springhexagonaltemplate.bootstrap..")
-            val common = Layer("common", "com.poisonedyouth.springhexagonaltemplate.common..")
+                Layer("bootstrap", "com.poisonedyouth.ktorhexagonaltemplate.bootstrap..")
+            val common = Layer("common", "com.poisonedyouth.ktorhexagonaltemplate.common..")
 
             common.dependsOnNothing()
             domain.dependsOn(common)
-            applicationLayer.dependsOn(domain, common)
-            framework.dependsOn(applicationLayer, domain, common)
-            bootstrap.dependsOn(framework)
+            application.dependsOn(domain, common)
+            infrastructure.dependsOn(application, domain, common)
+            bootstrap.dependsOn(infrastructure)
         }
     }
 
     @Test
-    fun `domain layer does not use Spring annotations`() {
+    fun `domain layer does not use Ktor framework`() {
         Konsist.scopeFromProduction()
             .files
-            .withPackage("com.poisonedyouth.springhexagonaltemplate.domain..")
+            .withPackage("com.poisonedyouth.ktorhexagonaltemplate.domain..")
             .imports
-            .assertFalse { import -> import.name.startsWith("org.springframework.") }
+            .assertFalse { import -> import.name.startsWith("io.ktor.") }
     }
 
     @Test
-    fun `application player does not use framework layer`() {
+    fun `application player does not use infrastructure layer`() {
         Konsist.scopeFromProduction()
             .files
-            .withPackage("com.poisonedyouth.springhexagonaltemplate.application..")
+            .withPackage("com.poisonedyouth.ktorhexagonaltemplate.application..")
             .imports
             .assertFalse { import ->
-                import.name.startsWith("com.poisonedyouth.springhexagonaltemplate.framework")
+                import.name.startsWith("com.poisonedyouth.ktorhexagonaltemplate.infrastructure")
             }
     }
 }

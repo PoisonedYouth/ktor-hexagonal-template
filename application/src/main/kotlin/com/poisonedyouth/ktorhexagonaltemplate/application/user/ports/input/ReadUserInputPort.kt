@@ -6,11 +6,11 @@ import com.poisonedyouth.ktorhexagonaltemplate.common.vo.Identity
 import com.poisonedyouth.ktorhexagonaltemplate.domain.user.entity.User
 
 class ReadUserInputPort(private val userOutputPort: UserOutputPort) : ReadUserUseCase {
-    override fun find(userId: Identity): User? {
+    override suspend fun find(userId: Identity): User? {
         return userOutputPort.findBy(userId)
     }
 
-    override fun all(): List<User> {
+    override suspend fun all(): List<User> {
         return userOutputPort.all()
     }
 }

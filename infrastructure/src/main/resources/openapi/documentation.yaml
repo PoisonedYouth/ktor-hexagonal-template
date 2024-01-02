@@ -1,0 +1,170 @@
+openapi: "3.0.3"
+info:
+  title: "ktor_hexagonal_template API"
+  description: "ktor_hexagonal_template API"
+  version: "1.0.0"
+servers:
+- url: "https://ktor_hexagonal_template"
+paths:
+  /api/v1/authentication/user:
+    post:
+      description: ""
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: "#/components/schemas/NewUserDto"
+        required: true
+      responses:
+        "201":
+          description: "Created"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Identity"
+  /api/v1/user:
+    delete:
+      description: ""
+      parameters:
+      - name: "id"
+        in: "query"
+        required: false
+        schema:
+          type: "string"
+      responses:
+        "202":
+          description: "Accepted"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+    get:
+      description: ""
+      parameters:
+      - name: "id"
+        in: "query"
+        required: false
+        schema:
+          type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserDto"
+        "404":
+          description: "Not Found"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+              examples:
+                Example#1:
+                  value: ""
+    put:
+      description: ""
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: "#/components/schemas/UserDto"
+        required: true
+      responses:
+        "202":
+          description: "Accepted"
+          content:
+            '*/*':
+              schema:
+                type: "object"
+  /api/v1/user/all:
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/UserDto"
+  /health:
+    get:
+      description: ""
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Map_String"
+components:
+  schemas:
+    CountryDto:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        code:
+          type: "string"
+      required:
+      - "name"
+      - "code"
+    AddressDto:
+      type: "object"
+      properties:
+        streetName:
+          type: "string"
+        streetNumber:
+          type: "string"
+        city:
+          type: "string"
+        zipCode:
+          type: "integer"
+          format: "int32"
+        country:
+          $ref: "#/components/schemas/CountryDto"
+      required:
+      - "streetName"
+      - "streetNumber"
+      - "city"
+      - "country"
+    NewUserDto:
+      type: "object"
+      properties:
+        firstName:
+          type: "string"
+        lastName:
+          type: "string"
+        address:
+          $ref: "#/components/schemas/AddressDto"
+      required:
+      - "firstName"
+      - "lastName"
+      - "address"
+    Identity:
+      type: "object"
+      properties: {}
+    UserDto:
+      type: "object"
+      properties:
+        identity:
+          type: "string"
+          format: "uuid"
+        firstName:
+          type: "string"
+        lastName:
+          type: "string"
+        address:
+          $ref: "#/components/schemas/AddressDto"
+      required:
+      - "identity"
+      - "firstName"
+      - "lastName"
+      - "address"
+    Map:
+      type: "object"
+      properties: {}
+    Map_String:
+      type: "string"

@@ -6,6 +6,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":common"))
 
+    testImplementation(libs.coroutinesTest)
     testImplementation(platform(libs.arrowStack))
     testImplementation(libs.arrowCore)
     testImplementation(libs.kotlinMockito)

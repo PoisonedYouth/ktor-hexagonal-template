@@ -7,6 +7,7 @@ import com.poisonedyouth.ktorhexagonaltemplate.domain.user.vo.Address
 import com.poisonedyouth.ktorhexagonaltemplate.domain.user.vo.Country
 import com.poisonedyouth.ktorhexagonaltemplate.domain.user.vo.Name
 import com.poisonedyouth.ktorhexagonaltemplate.domain.user.vo.ZipCode
+import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
@@ -19,7 +20,7 @@ class WriteUserInputPortTest {
     private val addUserInputPort = WriteUserInputPort(userOutputPort)
 
     @Test
-    fun `should store user and return identity when user is valid`() {
+    fun `should store user and return identity when user is valid`() = runTest {
         // given
         val identity = Identity.UUIDIdentity.NEW
         whenever(userOutputPort.store(any())).thenReturn(identity)

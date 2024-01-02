@@ -28,14 +28,14 @@ spec:
                 name: ktor-hexagonal-template
           livenessProbe:
             httpGet:
-              path: /actuator/health/liveness
+              path: /health
               port: 8080
             initialDelaySeconds: 30
             timeoutSeconds: 5
             periodSeconds: 3
           readinessProbe:
             httpGet:
-              path: /actuator/health/readiness
+              path: /health
               port: 8080
             initialDelaySeconds: 5
             timeoutSeconds: 30
